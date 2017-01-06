@@ -29,5 +29,12 @@ clone或者直接下载本代码库后，需要安装node，mongodb环境，之�
 
 * 关于mongodb的安装可以参照[这里](http://www.imooc.com/article/14770)
 * 如果你不想安装mongodb,可以上https://mlab.com/ 注册申请一个500M的免费mongodb数据库,很方便.
-
-* 持续更新,后续前端会采用react。
+`npm install grunt -g
+npm install grunt-cli -g
+npm install grunt-contrib-watch --save-dev
+npm install grunt-concurrent --save-dev
+npm install grunt-nodemon --save-dev
+然后找个python 2.7.8安装起来，注意，一定要勾选或者后动添加python到环境变量path中去。
+而后要手动安装bcrypt
+npm install bcrypt --save
+耐心等他装好就可以了`
