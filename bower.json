@@ -1,0 +1,19 @@
+{
+  "name": "information",
+  "description": "",
+  "main": "",
+  "authors": [
+    "xiongmingcai <1026911109@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/XiomgMingCai/Movie-website",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ]
+}

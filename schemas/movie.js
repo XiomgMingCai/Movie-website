@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const MovieSchema = new mongoose.schema({
+const mongoose=require('mongoose')
+
+const MovieSchema = new mongoose.Schema({
     direction:String,
     title:String,
-    language:string,
+    language:String,
     country:String,
     summary:String,
     flash:String,
@@ -10,12 +11,12 @@ const MovieSchema = new mongoose.schema({
     year:Number,
     meta:{//录入时间记录
         createAt:{
-            type:Data,
-            default:Data.now()
+            type:Date,
+            default:Date.now()
         },
         updateAt:{//更新时间
-            type:Data,
-            default:Data.new()
+            type:Date,
+            default:Date.now()
         }
     }
 });
@@ -24,10 +25,10 @@ const MovieSchema = new mongoose.schema({
  */
 MovieSchema.pre('save',function (next) {
     if (this.isNew){//判断是否是新加的
-        this.meta.createAt=this.meta.updateAt =Data.new;
+        this.meta.createAt=this.meta.updateAt = Date.now();
     }
     else {//数据已经有了
-        this.meta.updateAt = Data.new()
+        this.meta.updateAt = Date.now()
     }
     next()
 });
@@ -45,3 +46,6 @@ MovieSchema.statics = {
             .exec(cb)
     }
 };
+
+
+module.exports = MovieSchema;

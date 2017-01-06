@@ -1,60 +1,46 @@
 var express = require('express');
 var router = express.Router();
-
+var  mongoose =  require('mongoose');
+// 加载mongoDB数据模型集
+const Movie = require('../models/movis');
+/*加载函数库
+Underscor.js定义了一个下划线（_）对象，类似jquery的$
+函数库的所有方法都属于这个对象。这些方法大致上可以分成：
+集合（collection）、数组（array）、函数（function）、
+对象（object）和工具（utility）五大类
+说白了就是一个对以上数据有强大处理能力的模块*/
+var _ =require('underscore');
+mongoose.connect('mongodb://127.0.0.1:27017/Movie');
+mongoose.Promise = require('bluebird');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index', {
-        title: '电影-首页', movies: [
-            {
-                title: '情圣',
-                _id: 1,
-                poster: 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2409022364.jpg'
-            }, {
-                title: '摆渡人',
-                _id: 2,
-                poster: 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2390687452.jpg'
-            }, {
-                title: '铁道飞虎',
-                _id: 3,
-                poster: 'https://img5.doubanio.com/view/movie_poster_cover/lpst/public/p2404720316.jpg'
-            }, {
-                title: '你的名字',
-                _id: 4,
-                poster: 'https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2395733377.jpg'
-            }, {
-                title: '冰雪女皇之冬日..',
-                _id: 5,
-                poster: 'https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2381915097.jpg'
-            }, {
-                title: '情圣',
-                _id: 6,
-                poster: 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2409022364.jpg'
-            }
-        ]
-    });
+router.get('/', function (req, res) {
+    Movie.fetch(function (err, movies) {
+        if(err){
+            console.log(err);
+        }
+
+        res.render('index',{
+            title:'电影-首页',
+            movies:movies
+        });
+    })
 });
 
-// detail page
+// 加载detail page
+//访问路径就是localhost :3000/movie/id
 router.get('/movie/:id', function (req, res) {
     var id = req.params.id;
 
-    res.render('detail', {
-        title: '详情',
-        movie: {
-            director: '宋晓飞 / 董旭',
-            country: '中国大陆',
-            title: '情圣',
-            year: '2016-12-30',
-            poster: 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2409022364.jpg',
-            language: '汉语普通话',
-            flash: 'http://v.ifeng.com/include/exterior.swf?guid=01c7cb76-fef1-45f8-a14e-21e4e3e48d39&AutoPlay=false',
-            summary: '　好友突然离世，令生活安稳的肖瀚（肖央饰演）开始唏嘘人生苦短。柳下惠自居的他，因为偶然邂逅性感美女模特yoyo（克拉拉饰演），重新找回了心跳的感觉，遂欲借工作之便亲近女神，再尝试一遍初恋的刺激。然而，肖瀚的几次示好，不是因伴侣沈红（代乐乐饰演）的警觉而作罢，就是因顶头上司马丽莲（闫妮饰演）的误会而被迫中断，各种阴差阳错笑料不断。洋相频出的肖瀚左右为难又心有不甘，只好求助于身边的好兄弟艾木（艾伦饰演）、汤怀（乔杉饰演）、刘磊（小沈阳饰演），以及“神助攻”同事常剑（常远饰演），几人结成“情圣五贱客”花式开撩。在他们的出谋划策之下，肖瀚经历了一些列令人啼笑皆非的惊险囧事…'
-        }
-    });
+    Movie.findById(id,function (err,movie){
+        res.render('detail',{
+            title:'详情'+movie.title,
+            movie:movie
+        });
+    })
 
 })
-// admin page
+// 加载admin page
 router.get('/admin/movie', function (req, res) {
     res.render('admin', {
         title: 'movie 后台录入页',
@@ -75,35 +61,84 @@ router.get('/admin/movie', function (req, res) {
 router.get('/admin/update/:id', (req, res)=> {
     const id = req.params.id
 
-    res.render('admin',{title:'录入页'})
+    if(id){
+        Movie.findById(id,(err,movie)=>{
+            res.render('admin',{
+                title:'电影后台录入页',
+                movie:movie
+            })
+        })
+    }
 })
 
-//admin post movie
-router.post('/admin/movie/new', function (req, res) {
 
-    res.render('admin')
-})
+//admin post movie  录入页面 urlencoded,
+router.post('/admin/movie/new', function(req, res) {
 
-// list page
-router.get('/admin/list', (req, res)=> {
-    res.render('list', {
-        title: '列表页',
-        movies: [{
-            title: '情圣',
-            _id: 1,
-            director: '宋晓飞 / 董旭',
-            country: '中国大陆',
-            language: '汉语',
-            year: '2016-12-30',
-            poster: 'https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2409022364.jpg',
-            flash: 'http://v.ifeng.com/include/exterior.swf?guid=01c7cb76-fef1-45f8-a14e-21e4e3e48d39&AutoPlay=false',
-            summary: '　好友突然离世，令生活安稳的肖瀚（肖央饰演）开始唏嘘人生苦短。柳下惠自居的他，因为偶然邂逅性感美女模特yoyo（克拉拉饰演），重新找回了心跳的感觉，遂欲借工作之便亲近女神，再尝试一遍初恋的刺激。然而，肖瀚的几次示好，不是因伴侣沈红（代乐乐饰演）的警觉而作罢，就是因顶头上司马丽莲（闫妮饰演）的误会而被迫中断，各种阴差阳错笑料不断。洋相频出的肖瀚左右为难又心有不甘，只好求助于身边的好兄弟艾木（艾伦饰演）、汤怀（乔杉饰演）、刘磊（小沈阳饰演），以及“神助攻”同事常剑（常远饰演），几人结成“情圣五贱客”花式开撩。在他们的出谋划策之下，肖瀚经历了一些列令人啼笑皆非的惊险囧事…',
-        }]
-    })
-})
+    if(!req.body) return res.sendStatus(400);
 
+    var id = req.body.movie._id;
+    var movieObj = req.body.movie;
+    var _movie;
+
+    if( id != 'undefined' && id != '' ) {
+
+        console.log('take hello');
+        console.log(id);
+
+        Movie.findById(id, function(err,movie) {
+            if(err){
+                console.log(err);
+            }
+            _movie = _.extend(movie, movieObj);
+            _movie.save(function(err, _movie) {
+                if(err){
+                    console.log(err);
+                }
+                res.redirect('/movie/'+_movie._id);
+            });
+        });
+
+    }else{
+
+        _movie = new Movie({
+            title: movieObj.title,
+            doctor: movieObj.doctor,
+            country: movieObj.country,
+            language: movieObj.language,
+            poster: movieObj.poster,
+            flash: movieObj.flash,
+            year: movieObj.year,
+            summary: movieObj.summary
+        });
+        _movie.save(function(err,movie){
+            if(err){
+                console.log(err);
+            }
+            res.redirect('/movie/'+movie._id);
+        });
+
+    }
+
+
+});
+
+// 加载list page
+router.get('/admin/list',function(req,res){
+    Movie.fetch(function(err,movies){
+        if(err){
+            console.log(err);
+        }
+        res.render('list',{
+            title : 'Imove列表',
+            movies: movies,
+        });
+    });
+});
 //list delete movie
 router.delete('/admin/list', (req, res)=> {
+    // req.query 主要获取到客户端提交过来的键值对
+    // '/admin/list?id=12'，这里就会获取到12
     const id = req.query.id
 
     if (id) {

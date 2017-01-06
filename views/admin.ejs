@@ -2,42 +2,48 @@
 <%- include('layout/header') %>
 <div class="container">
     <div class="row">
-        <form action="/admin/movie/new" class="form-horizontal" method="post">
+        <form name="form" action="/admin/movie/new" class="form-horizontal" method="post">
             <input type="hidden" name="movie[_id]" value="<%= movie._id %>">
             <div class="form-grop">
                 <label for="inputTitle" class="col-sm-2 control-label">电影名字</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputTitle" class="form-control" name="movie[title]" value="<%= movie.title %>">
+                    <input type="text" id="inputTitle" class="form-control" name="movie[title]"
+                           value="<%= movie.title %>">
                 </div>
             </div>
             <div class="form-grop">
                 <label for="inputDirector" class="col-sm-2 control-label">导演</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputDirector" class="form-control" name="movie[director]" value="<%= movie.director %>">
+                    <input type="text" id="inputDirector" class="form-control" name="movie[director]"
+                           value="<%= movie.director %>">
                 </div>
             </div>
             <div class="form-grop">
                 <label for="inputCountry" class="col-sm-2 control-label">国家</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputCountry" class="form-control" name="movie[country]" value="<%= movie.country %>">
+                    <input type="text" id="inputCountry" class="form-control" name="movie[country]"
+                           value="<%= movie.country %>">
                 </div>
             </div>
             <div class="form-grop">
                 <label for="inputLanguage" class="col-sm-2 control-label">语言</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputLanguage" class="form-control" name="movie[language]" value="<%= movie.language %>">
+                    <input type="text" id="inputLanguage" class="form-control" name="movie[language]"
+                           value="<%= movie.language %>">
                 </div>
             </div>
             <div class="form-grop">
                 <label for="inputPoster" class="col-sm-2 control-label">海报</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputPoster" class="form-control" name="movie[poster]" value="<%= movie.poster %>">
+                    <input type="text" id="inputPoster" class="form-control" name="movie[poster]"
+                           value="<%= movie.poster %>">
                 </div>
             </div>
             <div class="form-grop">
                 <label for="inputFlash" class="col-sm-2 control-label">片源地址</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputFlash" class="form-control" name="movie[flash]" value="<%= movie.flash %>">
+                    <input type="text" id="inputFlash" class="form-control" name="movie[flash]"
+                           value="<%= movie.flash %>">
                 </div>
             </div>
             <div class="form-grop">
@@ -49,7 +55,8 @@
             <div class="form-grop">
                 <label for="inputSummary" class="col-sm-2 control-label">简介</label>
                 <div class="col-sm-10">
-                    <input type="text" id="inputSummary" class="form-control" name="movie[summary]" value="<%= movie.summary %>">
+                    <input type="text" id="inputSummary" class="form-control" name="movie[summary]"
+                           value="<%= movie.summary %>">
                 </div>
             </div>
             <div class="col-sm-offset-2 col-sm-10">

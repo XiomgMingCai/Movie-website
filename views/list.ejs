@@ -10,22 +10,21 @@
                 <th>国家</th>
                 <th>语言</th>
                 <th>上映年份</th>
-                <!--<th>录入时间</th>-->
+                <th>录入时间</th>
                 <th>简介</th>
                 <th>查看</th>
                 <th>更新</th>
                 <th>删除</th>
             </tr>
             <tbody>
-
-            <% movies.forEach(function (item){ %>
+            <% movies.forEach((item)=>{ %>
             <tr class="item-id-<%= item._id %>">
                 <td><%= item.title %></td>
                 <td><%= item.director %></td>
                 <td><%= item.country %></td>
                 <td><%= item.language %></td>
                 <td><%= item.year %></td>
-
+                <td><%= moment(item.meta.updateAt).format('MM/DD/YYYY')%></td>
                 <td><%= item.summary %></td>
                 <td><a href="../detail/<%= item._id %>" target="_blank">查看</a></td>
                 <td><a href="../admin/control/update/<%= item._id %>" target="_blank">修改</a></td>
@@ -39,6 +38,6 @@
         </table>
     </div>
 </div>
-<script src="/js/admin.js"></script>
+<script src="/javascripts/list_Delete_Admin.js"></script>
 </body>
 </html>
