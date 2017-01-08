@@ -47,7 +47,7 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(path.dest.scripts));
 });
 
-// 图片压缩
+// 图片压缩grunt.md
 gulp.task('images', function() {
     return gulp.src(path.src.images)
         .pipe(plugins.cache(plugins.imagemin({ progressive: true, interlaced: true })))
