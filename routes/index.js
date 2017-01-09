@@ -10,7 +10,7 @@ Underscor.js定义了一个下划线（_）对象，类似jquery的$
 对象（object）和工具（utility）五大类
 说白了就是一个对以上数据有强大处理能力的模块*/
 var _ =require('underscore');
-mongoose.connect('mongodb://127.0.0.1:27017/Movie');
+// mongoose.connect('mongodb://127.0.0.1:27017/Movie');
 mongoose.Promise = require('bluebird');
 
 /* GET home page. */

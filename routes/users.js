@@ -10,7 +10,7 @@ const User = require('../models/User');
  对象（object）和工具（utility）五大类
  说白了就是一个对以上数据有强大处理能力的模块*/
 var _ =require('underscore');
-// mongoose.connect('mongodb://127.0.0.1:27017/Movie');
+mongoose.connect('mongodb://127.0.0.1:27017/Movie');
 mongoose.Promise = require('bluebird');
 /*
 通过req.param('userid')来拿参数时，参数的来源有优先级。
@@ -46,7 +46,31 @@ router.post('/signup', function(req, res, next) {
   })
 
 });
+/* GET users/signin  listing. */
+router.post('/signin', function (req, res, next) {
+  const _user = req.body.user;
+  const name = _user.name;
+  const password = _user.password;
 
+  User.findOne({name: _user.name}, (err, user)=> {
+    if (err) console.log(err);
+
+    if (!user) {
+      res.redirect('/');
+    }
+
+    user.comparePassword(password, function (err, isMatch) {
+      if (err) console.log(err);
+
+      else if (isMatch) {
+        console.log('密码匹配正确')
+        res.redirect('/');
+      }
+
+      else console.log('no!!!23')
+    })
+  });
+});
 router.get('/userlist', function(req, res, next) {
   User.fetch(function (err, users) {
     if (err) console.log(err)
