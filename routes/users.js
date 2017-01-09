@@ -64,6 +64,7 @@ router.post('/signin', function (req, res, next) {
 
       else if (isMatch) {
         console.log('密码匹配正确')
+        req.session.user = user;//把user写到客户端
         res.redirect('/');
       }
 

@@ -13,6 +13,28 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+/*由于HTTP协议传输数据 是无状态的协议一但数据交换完成 服务端和客户端的链接就会关闭 再次交换就需要建立新的链接
+ * 意味着服务器无法无法从链接上跟踪会会话了 所有就需要session(通过服务器端记录来确定身份)
+ * ||(cookie通过客户端记录来确定用户身份) 来弥补*/
+var session = require('express-session'); //如果要使用session，需要单独包含这个模块
+var bcrypt = require("bcryptjs"); //bcrypt加密引用
+var mongoStore = require("connect-mongo")(session); //持久化session 的写法详见参考connect-mongo API
+var dbUrl = "mongodb://127.0.0.1:27017/Movie";
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cookieParser());
+app.use(session({
+  name: "kvkens",
+  secret: "imooc",
+  resave: false,
+  saveUninitialized: false,
+  store: new mongoStore({
+    url: dbUrl,
+    auto_reconnect: true,//issue 推荐解决方法
+    collection: "sessions"
+  })
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
