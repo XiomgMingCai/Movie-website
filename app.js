@@ -25,16 +25,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
-  name: "kvkens",
-  secret: "imooc",
-  resave: false,
-  saveUninitialized: false,
+  secret:'react',         // 设置的secret字符串，来计算hash值并放在cookie中
+  resave: false,                                    // session变化才进行存储
+  saveUninitialized: true,
+  // 使用mongo对session进行持久化，将session存储进数据库中
   store: new mongoStore({
-    url: dbUrl,
-    auto_reconnect: true,//issue 推荐解决方法
-    collection: "sessions"
+    url: dbUrl,                                     // 本地数据库地址
+    collection: 'sessions'                          // 存储到mongodb中的字段名
   })
 }));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
