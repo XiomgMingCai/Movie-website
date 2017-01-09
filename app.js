@@ -54,7 +54,16 @@ app.use(express.static(path.join(__dirname, 'public')));
  这里如果换成app.locals.dateFun = require('moment');
  在list模板中我们就需要 #{dateFun(xxxxx).format(MM/DD/YYYY)}*/
 app.locals.moment = require('moment');
+app.use(function (req, res, next) {
+  var _user = req.session.user;
+  if (_user) {
+    app.locals.user = _user;
+    next()
+  } else {
+    return next()
+  }
 
+});
 app.use('/', index);
 app.use('/users', users);
 

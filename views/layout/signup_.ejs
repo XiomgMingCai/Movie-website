@@ -4,11 +4,11 @@
         <div class="navbar-header">
             <a href="/" class="navbar-brand">react学习迷</a>
         </div>
-        <% if (0) { %>
+        <% if (user) { %>
         <p class="navbar-text navbar-right">
-            <span>欢迎您,</span>
+            <span>欢迎您    <%= user.name %></span>
             <span>&nbsp;|&nbsp;</span>
-            <a href="/logout" class="navbar-link">登出</a>
+            <a href="/users/logout" class="navbar-link">登出</a>
         </p>
         <% } else { %>
         <p class="navbar-text navbar-right">

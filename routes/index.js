@@ -17,6 +17,7 @@ mongoose.Promise = require('bluebird');
 router.get('/', function (req, res) {
     console.log('user in session !')
     console.log(req.session.user);
+    var user =req.session.user||null;
     Movie.fetch(function (err, movies) {
         if(err){
             console.log(err);
@@ -24,7 +25,8 @@ router.get('/', function (req, res) {
 
         res.render('index',{
             title:'电影-首页',
-            movies:movies
+            movies:movies,
+            user:user
         });
     })
 });

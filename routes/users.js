@@ -72,6 +72,13 @@ router.post('/signin', function (req, res, next) {
     })
   });
 });
+// logout
+router.get('/logout', function(req, res, next) {
+  delete req.session.user
+  // delete app.locals.user
+
+  res.redirect('/')
+});
 router.get('/userlist', function(req, res, next) {
   User.fetch(function (err, users) {
     if (err) console.log(err)
