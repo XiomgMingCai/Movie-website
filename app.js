@@ -5,13 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 /*由于HTTP协议传输数据 是无状态的协议一但数据交换完成 服务端和客户端的链接就会关闭 再次交换就需要建立新的链接
  * 意味着服务器无法无法从链接上跟踪会会话了 所有就需要session(通过服务器端记录来确定身份)
@@ -64,8 +61,7 @@ app.use(function (req, res, next) {
   }
 
 });
-app.use('/', index);
-app.use('/users', users);
+require('./config/routes')(app)     
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
