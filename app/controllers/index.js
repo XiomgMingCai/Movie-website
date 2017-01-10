@@ -1,5 +1,4 @@
-const Movie=require('../models/movis')
-const Category=require('../models/category')
+const Movie = require('../models/movis')
 /* GET home page. */
 exports.index = function (req, res) {
     console.log('user in session !')
