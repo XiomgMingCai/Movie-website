@@ -1,13 +1,21 @@
 const User = require('../models/user');
-/*
- 通过req.param('userid')来拿参数时，参数的来源有优先级。
- 例：
- /user/signup/1111?userid=1112
- {userid:1113}
- 1111：路由里的参数；1112：url里参数；1113：后台data里的参数
 
- 优先级顺序：1111 > 1113 > 1112*/
-/* GET users/signup  listing. */
+
+
+
+exports.showSignin = function (req, res, next) {
+
+    res.render('signin', {
+        title: '用户列表页',
+    })
+}
+exports.showSignup = function (req, res, next) {
+
+    res.render('signup', {
+        title: '用户列表页',
+    })
+}
+
 exports.signup = function (req, res, next) {
     /* req.param('user') 获取顺序
      先从路由中获取，再从body中获取，再从query中获取参数
@@ -20,14 +28,14 @@ exports.signup = function (req, res, next) {
         if (err) console.log(err)
         //注册过
         if (user) {
-            return res.redirect('/')
+            return res.redirect('/signin')//用户名已经能在数据库查到了
         } else {
             const user = new User(_user)
             user.save(function (err, user) {
                 if (err) {
                     console.log(err)
                 }
-                res.redirect('/users/userlist')
+                res.redirect('/')
             })
         }
     })
@@ -43,7 +51,7 @@ exports.signin = function (req, res, next) {
         if (err) console.log(err);
 
         if (!user) {
-            res.redirect('/');
+            res.redirect('/');/*用户不存在*/
         }
 
         user.comparePassword(password, function (err, isMatch) {
@@ -55,7 +63,7 @@ exports.signin = function (req, res, next) {
                 res.redirect('/');
             }
 
-            else console.log('no!!!23')
+            else return res.redirect('/signin');/*密码不正确*/
         })
     });
 };
@@ -77,5 +85,21 @@ exports.userlist = function (req, res, next) {
         })
 
     })
+};
+/*是否登录*/
+exports.signinRequired = function (req, res, next) {
+    var user = req.session.user
+    if(!user){
+        return res.redirect('/signin')
+    }
+    next();
+}
+/*权限控制*/
+exports.adminRequired = function (req, res, next) {
+    var user = req.session.user
+    if(user.role <= 10 ){
+        return res.redirect('/signin')
+    }
+    next();
 };
     

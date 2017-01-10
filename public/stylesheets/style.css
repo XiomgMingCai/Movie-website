@@ -1,9 +1,30 @@
+
+a {
+  color: #00B7FF;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #525248;
   color: #ffffff;
 }
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading{
+  margin-bottom: 10px;
+}
 
-a {
-  color: #00B7FF;
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
 }
