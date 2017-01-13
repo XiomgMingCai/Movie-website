@@ -1,0 +1,52 @@
+<%- include('layout/head') %>
+<%- include('layout/header') %>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <ul class="sync-pagination pagination-sm"></ul>
+        <div>
+        <% if (items.length) { %>
+        <ul class=".sync-pagination .pagination-sm">
+
+            <% items.forEach(function(item ){ %>
+                <h5>
+                     <%if (item.type){%>
+                        <span class="label label-success"> <%= item.type%></span>
+                        <%}else {%>
+                        <span class="label label-info"> 精华</span>
+                        <%}%>
+
+                    <a href="<%=item.link%>" target="_blank"><%=item.title%> </a>
+                </h5>
+            <% }) %>
+        </ul>
+        <% } %>
+        </div>
+    </div>
+</div>
+<!--//http://esimakin.github.io/twbs-pagination/-->
+<script src="/libs/jquery/jquery.twbsPagination.min.js"></script>
+<script>
+  /*  {
+        "title": "《一起学 Node.js》彻底重写完毕",
+            "href": "/topic/581b0c4ebb9452c9052e7acb",
+            "link": "https://cnodejs.org/topic/581b0c4ebb9452c9052e7acb",
+            "type": ""
+    },*/
+    $(document).ready(function () {
+        $('.sync-pagination').twbsPagination({
+            totalPages: 492,
+            visiblePages: 7,
+            first:'首页',
+            last:'末页',
+            prev:'上一页',
+            next:'下一页',
+            href:'?tab=all&page={{number}}',
+            onPageClick: function (evt, page) {
+                $('#sync-example-page-content').text('Page ' + page);
+            }
+        });
+    });
+</script>
+</body>

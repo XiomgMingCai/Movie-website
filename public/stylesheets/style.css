@@ -1,6 +1,6 @@
 
 a {
-  color: #00B7FF;
+  color: #ffffff;
 }
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -27,4 +27,7 @@ body {
 }
 .form-signin .form-control:focus {
   z-index: 2;
+}
+.sync-pagination {
+
 }

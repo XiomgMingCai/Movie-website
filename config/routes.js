@@ -10,7 +10,9 @@ module.exports = function (app) {
     var Movie = require('../app/controllers/movie');
 
 
-    app.get('/', Index.index);
+    app.get('/', Index.article);
+    app.get('/article', Index.article);
+    app.get('/cnode', Index.cnode);
 
     app.post('/users/signup', User.signup);
     app.post('/users/signin', User.signin);

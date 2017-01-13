@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/libs/prism/prism.css" rel="stylesheet" />
+</head>
+<style>
+
+    body {
+        background: #1d1e1a;
+    }
+
+    * {
+        color: #ffffff;
+    }
+    #sidebar{
+        position: fixed;
+        top:0;
+        bottom: 0;
+        right: -300px;
+        width: 300px;
+        background: #4c4b39;
+        transition: right 0.5s;
+    }
+    #sidebar ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    #sidebar ul li{
+        display: inline-block;
+        width: 100%;
+    }
+    #sidebar  a{
+        padding: 10px 20px;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+    }
+    #sidebar ul a:hover{
+        background-color: #2e2f2b;
+    }
+    #mask{
+        display: none;
+
+        position: fixed;
+        top:0;
+        bottom: 0;
+        right: 0;
+        left:0;
+        background: rgba(0,0,0,0.5);
+    }
+    #sidebar_trigger{
+       position: fixed;
+        right: 350px;
+}#sidebar_trigger2{
+       position: fixed;
+         top:0;
+        left: 0px;
+}
+</style>
+<body>
+
+<nav>
+    <button id="sidebar_trigger">菜单</button>
+    <a href="/"><button id="sidebar_trigger2">首页</button></a>
+    </ul>
+</nav>
+
+<h3>json</h3>
+<p><pre><code class="language-json">{
+  "name": "information",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
+  }
+}
+</code></pre></p>
+
+
+<p><pre><code class="language-jade">
+div
+    ul.sync-pagination.pagination-sm
+
+each item,i in items
+    - if (item.type)
+    h5
+        button.btn.btn-success.btn-xs [#{item.type}]
+            span.label.label-success #{i+1}
+        a(href="#{item.link}" target="_blank" ) 　#{item.title}
+    - else
+    h5
+        button.btn.btn-info.btn-xs [未知]
+            span.label.label-info #{i+1}
+        a(href="#{item.link}" target="_blank" ) 　#{item.title}
+
+ul.sync-pagination.pagination-sm
+
+</code></pre></p><p><pre><code class="language-JavaScript">
+methods.forEach(function(method){
+  app[method] = function(path){
+    if (method === 'get' && arguments.length === 1) {
+      // app.get(setting)
+      return this.set(path);
+    }
+
+    this.lazyrouter();
+
+    var route = this._router.route(path);
+    route[method].apply(route, slice.call(arguments, 1));
+    return this;
+  };
+});ul.sync-pagination.pagination-sm
+
+</code></pre></p>
+
+<p>
+<h3>安装Express Generator</h3>
+<p>Express Generator是一个用来搭建应用的Node模块。为了安装Express Generator，我们需要打开另一个Mac的终端或者windows的命令提示窗口，
+    然后执行：</p>
+<pre><code class="language-jade">
+extends layout
+block content
+    h1= title
+
+    div
+        ul.sync-pagination.pagination-sm
+
+    each item,i in items
+        - if (item.type)
+            h5
+                button.btn.btn-success.btn-xs [#{item.type}]
+                    span.label.label-success #{i+1}
+                a(href="#{item.link}" target="_blank" ) 　#{item.title}
+        - else
+            h5
+                button.btn.btn-info.btn-xs [未知]
+                    span.label.label-info #{i+1}
+                a(href="#{item.link}" target="_blank" ) 　#{item.title}
+
+    ul.sync-pagination.pagination-sm
+    div.jumbotron
+        h1 关于
+        p  .CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。
+        p  .CNode 社区由一批热爱 Node.js 技术的工程师发起，目前已经吸引了互联网各个公司的专业技术人员加入，我们非常欢迎更多对 Node.js 感兴趣的朋友。
+        p  .CNode 的 SLA 保证是，一个9，即 90.000000%。
+        p  .社区目前由 @alsotang 在维护，有问题请联系：https://github.com/alsotang
+        p  .请关注我们的官方微博：http://weibo.com/cnodejs
+        <p><a class="btn btn-primary btn-lg" href="https://cnodejs.org" role="button" target="_blank">原站链接</a></p>
+    //http://esimakin.github.io/twbs-pagination/
+    script(src="/javascripts/jquery.twbsPagination.min.js")
+    script.
+      $(document).ready(function () {
+                     $('.sync-pagination').twbsPagination({
+                         totalPages: #{items.totalPages},
+                         visiblePages: 7,
+                         first:'首页',
+                         last:'末页',
+                         prev:'上一页',
+                         next:'下一页',
+                         href:'?tab=all&page={{number}}',
+                         onPageClick: function (evt, page) {
+                             $('#sync-example-page-content').text('Page ' + page);
+                         }
+                     });
+                 });
+
+
+</code></pre></p>
+<div id="mask"></div>
+<div id="sidebar">
+    <ul>
+        <li><a href="#">Lorem ips sit amet.</a></li>
+    </ul>
+</div>
+<script src="/libs/jquery/jquery.min.js"></script>
+<script>
+    ;$(function () {
+        'use strict';
+        var sidebar =$('#sidebar')
+        var mask =$('#mask')
+        var sidebar_trigger =$('#sidebar_trigger')
+        function showSidebar() {
+            mask.fadeIn()
+            sidebar.css('right','0')
+        }
+        function hideSidebar() {
+            mask.fadeOut();
+            sidebar.css('right','-300px')
+        }
+
+        sidebar_trigger.on('click',showSidebar)
+        mask.on('click',hideSidebar)
+    })
+
+</script>
+<script src="/libs/prism/prism.js"></script>
+</body>
+</html>
